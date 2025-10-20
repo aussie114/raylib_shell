@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="EN-us">
+  <head>
+    <style>
+        body { margin: 0px; overflow: hidden; background-color: white; }
+        /* Add a style for the splash image */
+        #splash-logo {
+            position: absolute; /* Position over everything else */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Center it perfectly */
+            max-width: 80%; /* Ensure it fits on smaller screens */
+            max-height: 80%;
+            z-index: 10; /* Make sure it's above the canvas */
+        }
+        /* Make the canvas invisible initially, it will be made visible in JavaScript */
+        canvas.emscripten { 
+            border: 0px none; 
+            background-color: white; 
+            visibility: hidden;
+        }
+    </style>
+    </head>
+  <body>
+    <img id="splash-logo" src="https://raw.githubusercontent.com/raysan5/raylib/refs/heads/master/logo/raylib_logo_animation.gif" alt="raylib Logo Loading Screen">
+
+    <canvas class=emscripten id=canvas oncontextmenu=event.preventDefault() tabindex=-1></canvas>
+    
+    <p id="output" />
+    <script>
+        var Module = {
+            // ... (Existing print and canvas functions) ...
+            
+            // --- NEW: Post-execution step to hide the splash and show the canvas ---
+            postRun: function() {
+                var canvas = document.getElementById('canvas');
+                var logo = document.getElementById('splash-logo');
+                
+                // 1. Make the canvas visible
+                canvas.style.visibility = 'visible';
+                
+                // 2. Hide or remove the splash screen logo
+                // You can either hide it:
+                logo.style.display = 'none';
+                // Or remove it from the DOM entirely:
+                // logo.parentNode.removeChild(logo); 
+            },
+            // ---------------------------------------------------------------------
+
+            canvas: (function() {
+                var canvas = document.getElementById('canvas');
+                return canvas;
+            })()
+        };
+    </script>
+    {{{ SCRIPT }}}
+  </body>
+</html>
