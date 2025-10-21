@@ -1,20 +1,33 @@
 <!doctype html>
 <html lang="EN-us">
   <head>
-    <style>
-        body { margin: 0px; overflow: hidden; background-color: white; }
-        /* Add a style for the splash image */
-        #splash-logo {
-            position: absolute; /* Position over everything else */
-            z-index: 10; /* Make sure it's above the canvas */
-        }
-        /* Make the canvas invisible initially, it will be made visible in JavaScript */
-        canvas.emscripten { 
-            border: 0px none; 
-            background-color: white; 
-            visibility: hidden;
-        }
-    </style>
+	<style>
+		/* Make HTML and BODY fill the entire viewport/iframe */
+		html, body { 
+			height: 100%; 
+			width: 100%; 
+			margin: 0; 
+			padding: 0; 
+			overflow: hidden; /* Prevent scrolling inside the iframe */
+		}
+
+		/* Add a style for the splash image */
+		#splash-logo {
+			position: absolute; /* Position over everything else */
+			z-index: 10; /* Make sure it's above the canvas */
+			width: 100%; /* Ensure it doesn't overflow */
+			height: 100%; /* Ensure it doesn't overflow */
+		}
+
+		/* Make the canvas invisible initially, it will be made visible in JavaScript */
+		canvas.emscripten { 
+			border: 0px none; 
+			background-color: white; 
+			/* Crucial changes for responsiveness: */
+			width: 100%; /* Canvas takes up 100% of the container width */
+			height: 100%; /* Canvas takes up 100% of the container height */
+		}
+	</style>
     </head>
   <body>
     <img id="splash-logo" src="https://raw.githubusercontent.com/aussie114/raylib_shell/refs/heads/master/raylib_loading.gif" alt="raylib Logo Loading Screen">
